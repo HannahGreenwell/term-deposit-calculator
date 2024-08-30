@@ -2,6 +2,20 @@ import React from 'react';
 import './App.css';
 
 function App() {
+  const [startingWith, setStartingWith] = React.useState('10000');
+  const [interestRate, setInterestRate] = React.useState('1.10');
+  const [investmentTerm, setInvestmentTerm] = React.useState('36');
+  const [interestPaid, setInterestPaid] = React.useState('atMaturity');
+
+  React.useEffect(() => {
+    console.log({
+      startingWith,
+      interestRate,
+      investmentTerm,
+      interestPaid,
+    });
+  }, [startingWith, interestRate, investmentTerm, interestPaid]);
+
   return (
     <div className="App">
       <h1>Term Deposit Calculator</h1>
@@ -11,12 +25,13 @@ function App() {
           Starting with:
           <input
             className="App-input"
-            defaultValue={10000}
             min="1000"
             max="1500000"
             name="startingWith"
             required={true}
             type="number"
+            value={startingWith}
+            onChange={event => setStartingWith(event.target.value)}
           />
         </label>
       </div>
@@ -26,12 +41,13 @@ function App() {
           Interest rate:
           <input
             className="App-input"
-            defaultValue={1.1}
             min="0"
             max="15"
             name="interestRate"
             required={true}
             type="number"
+            value={interestRate}
+            onChange={event => setInterestRate(event.target.value)}
           />
           % p.a.
         </label>
@@ -42,12 +58,13 @@ function App() {
           Investment term:
           <input
             className="App-input"
-            defaultValue={36}
             min="3"
             max="60"
             name="investmentTerm"
             required={true}
             type="number"
+            value={investmentTerm}
+            onChange={event => setInvestmentTerm(event.target.value)}
           />
           months
         </label>
@@ -58,21 +75,39 @@ function App() {
 
         <div className="App-radio">
           <label>
-            <input name="interestPaid" type="radio" value="monthly" />
+            <input
+              checked={interestPaid === 'monthly'}
+              name="interestPaid"
+              type="radio"
+              value="monthly"
+              onChange={event => setInterestPaid(event.target.value)}
+            />
             Monthly
           </label>
         </div>
 
         <div className="App-radio">
           <label>
-            <input name="interestPaid" type="radio" value="quarterly" />
+            <input
+              checked={interestPaid === 'quarterly'}
+              name="interestPaid"
+              type="radio"
+              value="quarterly"
+              onChange={event => setInterestPaid(event.target.value)}
+            />
             Quarterly
           </label>
         </div>
 
         <div className="App-radio">
           <label>
-            <input name="interestPaid" type="radio" value="annually" />
+            <input
+              checked={interestPaid === 'annually'}
+              name="interestPaid"
+              type="radio"
+              value="annually"
+              onChange={event => setInterestPaid(event.target.value)}
+            />
             Annually
           </label>
         </div>
@@ -80,10 +115,11 @@ function App() {
         <div className="App-radio">
           <label>
             <input
-              defaultChecked={true}
+              checked={interestPaid === 'atMaturity'}
               name="interestPaid"
               type="radio"
               value="atMaturity"
+              onChange={event => setInterestPaid(event.target.value)}
             />
             At maturity
           </label>
