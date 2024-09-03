@@ -1,19 +1,22 @@
 import React from 'react';
 import './App.css';
+import { calculateFinalBalance } from './calculator';
 
 function App() {
   const [startingWith, setStartingWith] = React.useState('10000');
   const [interestRate, setInterestRate] = React.useState('1.10');
   const [investmentTerm, setInvestmentTerm] = React.useState('36');
   const [interestPaid, setInterestPaid] = React.useState('atMaturity');
+  const [finalBalance, setFinalBalance] = React.useState<Number>();
 
   React.useEffect(() => {
-    console.log({
-      startingWith,
-      interestRate,
-      investmentTerm,
+    const balance = calculateFinalBalance(
+      Number(startingWith),
+      Number(interestRate),
+      Number(investmentTerm),
       interestPaid,
-    });
+    );
+    setFinalBalance(balance);
   }, [startingWith, interestRate, investmentTerm, interestPaid]);
 
   return (
@@ -126,7 +129,7 @@ function App() {
         </div>
       </fieldset>
 
-      <p className="App-balance">Final balance: $10330</p>
+      <p className="App-balance">{`Final balance: $${finalBalance}`}</p>
     </div>
   );
 }
