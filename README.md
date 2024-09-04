@@ -46,7 +46,7 @@ This will start [Jest](https://jestjs.io/) in the interactive watch mode.
 To run the tests with coverage reporting run:
 
 ```shell
-npm test -- --coverage
+npm test -- --coverage --watchAll
 ```
 
 ## Assumptions
